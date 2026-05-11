@@ -1,0 +1,30 @@
+# Directories to exclude
+app/
+old_app/
+DASHBOARD_README.md
+
+# Environment and secrets
+.env
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Large model files and data
+*.pth
+*.csv
+
+# Generated plots
+*.png
+
+# System files
+.DS_Store
