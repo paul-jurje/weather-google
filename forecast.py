@@ -73,14 +73,14 @@ if __name__ == "__main__":
     forecast_times = [df_latest.index[-1] + timedelta(hours=i+1) for i in range(24)]
     forecast_df = pd.DataFrame({
         'Time': forecast_times,
-        'Temp_C': temps,
-        'Humidity_%': hums,
-        'Wind_Spd': wind_speeds,
-        'Wind_Deg': wind_degs,
-        'Rain_mm': rains,
-        'Cloud_%': clouds,
-        'Solar_W': solars
-    })
+        'Temp (°C)': temps,
+        'Humidity (%)': hums,
+        'Wind Spd (km/h)': wind_speeds,
+        'Wind Deg (°)': wind_degs,
+        'Rain (mm)': rains,
+        'Cloud (%)': clouds,
+        'Solar (W/m²)': solars
+    }).round(2)
     
     print("\nNext 24 Hours Transformer Forecast (Starting from Now):")
     
@@ -88,7 +88,9 @@ if __name__ == "__main__":
     CYAN = "\033[36m"
     RESET = "\033[0m"
     
-    recent_actuals = df_latest[['temp', 'humidity', 'wind_speed', 'wind_deg', 'rain', 'cloud_cover', 'solar_rad']].tail(3)
+    recent_actuals = df_latest[['temp', 'humidity', 'wind_speed', 'wind_deg', 'rain', 'cloud_cover', 'solar_rad']].tail(3).copy().astype(float)
+    recent_actuals.columns = ['Temp (°C)', 'Humidity (%)', 'Wind Spd (km/h)', 'Wind Deg (°)', 'Rain (mm)', 'Cloud (%)', 'Solar (W/m²)']
+    pd.options.display.float_format = '{:.2f}'.format
     print(f"{CYAN}Recent Actual Weather (Last 3 Hours):")
     print(recent_actuals)
     print(f"{RESET}")
@@ -130,7 +132,7 @@ if __name__ == "__main__":
                      xytext=(0, -10), textcoords='offset points',
                      arrowprops=dict(arrowstyle='->', color='red', lw=1.5, mutation_scale=15),
                      rotation=wind_degs[i])
-    axes[3].set_title("Wind Direction (Deg)")
+    axes[3].set_title("Wind Direction (°) ")
     axes[3].legend()
 
     # Rain
